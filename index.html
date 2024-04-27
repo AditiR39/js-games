@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Memory game</h2>
+        <div class="game">
+
+        </div>
+        <button class="reset" onclick="window.location.reload()">Reset Game </button>
+    </div>
+    <script>
+        const emojis=["🧁","🧁","🍕","🍕","🧀","🧀","🍪","🍪","🍸","🍸","🍩","🍩","🍝","🍝","🧋","🧋"];
+        var shuf_emojis=emojis.sort(() => (Math.random() > .5) ? 2 : -1);
+        for (var i = 0; i < emojis.length; i++) {
+    let box = document.createElement('div');
+    box.className = 'items';
+    box.innerHTML = shuf_emojis[i];
+    box.onclick = function() {
+        this.classList.add('boxopen');
+        setTimeout(function() {
+            if (document.querySelectorAll('.boxopen').length > 1) {
+                if (document.querySelectorAll('.boxopen')[0].innerHTML == document.querySelectorAll('.boxopen')[1].innerHTML) {
+                    document.querySelectorAll('.boxopen').forEach(function(box) {
+                        box.classList.add('boxmatch');
+                    });
+                    if (document.querySelectorAll('.boxmatch').length == emojis.length) {
+                        alert('Congratulations, you won!');
+                    }
+                } else {
+                    document.querySelectorAll('.boxopen').forEach(function(box) {
+                        box.classList.remove('boxopen');
+                    });
+                }
+            }
+        }, 500);
+    };
+    document.querySelector('.game').appendChild(box);
+}
+
+
+
+    </script>
+</body>
+</html>
